@@ -9,19 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('transaction_details', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 150);
+            $table->string('sku', 50)->unique();
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2)->default(0);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('transaction_details');
+        Schema::dropIfExists('items');
     }
 };

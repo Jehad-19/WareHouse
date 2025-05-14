@@ -9,10 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('supplier_id')->constrained()->onDelete('cascade');
+            $table->foreignId('warehouse_id')->constrained()->onDelete('cascade');
+            $table->timestamp('purchased_at')->useCurrent();
+            $table->decimal('total', 12, 2)->default(0);
             $table->timestamps();
         });
     }
